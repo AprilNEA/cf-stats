@@ -53,9 +53,12 @@ jobs:
 
       # Commit all changed files to the repository
       - name: Commit to the repo
+        env:
+          COMMIT_USER: ${{ secrets.COMMIT_NAME }}
+          COMMIT_EMAIL: ${{ secrets.COMMIT_EMAIL }}
         run: |
-          git config --global user.name "sudiptob2/cf-stats"
-          git config --global user.email "cf-stats[bot]@sudiptob2.github.io"
+          git config --global user.name "$COMMIT_USER"
+          git config --global user.email "$COMMIT_EMAIL"
           git add .
           # Force the build to succeed, even if no files were changed
           git commit -m 'Update generated files' || true
